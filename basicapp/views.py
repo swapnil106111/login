@@ -15,8 +15,11 @@ def loginView(request):
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             print(email, password)
-            if email == 'swap106111@gmail.com' and password == 'abcde':
-            	return HttpResponse("LoggedIn")
+            loginCheck = registration.objects.get(email=email)
+            if loginCheck:
+            	return HttpResponse("Logged in successfully")
+            else:
+            	return redirect('/login/')
     return render(request, "base.html", {'form': form})
 
 
